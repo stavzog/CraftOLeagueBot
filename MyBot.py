@@ -59,6 +59,10 @@ async def on_message(message):
         embed.add_field(name="Made for:", value="The bot was originally made for a discord server called Craft O' League", inline=False)
         embed.set_footer(text="Copyright Craft O' League")
         await client.send_message(message.channel, embed=embed)
+    if message.content.startswith(":clear"):
+        tmp = await client.send_message(message.channel, 'Clearing messages')
+        async for msg in client.logs_from(message.channel):
+            await client.delete_message(msg)
     
 
 
