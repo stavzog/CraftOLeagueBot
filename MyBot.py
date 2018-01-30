@@ -10,6 +10,7 @@ client = commands.Bot(command_prefix = ":")
 @client.event
 async def on_ready():
     print("Bot is running! GG")
+    await client.change_presence(game=discord.Game(name=':help'))
 
 @client.event
 async def on_message(message):
