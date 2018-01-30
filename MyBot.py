@@ -85,8 +85,11 @@ async def on_message(message):
         if role.id in [role.id for role in message.author.roles]:
             args = message.content.split(" ")
             arg1 = " ".join(args[1:])
+            print(arg1)
             channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
+            print(channel.id)
             arg2 = " ".join(args[2:])
+            print(arg2)
             await client.send_message(channel, "%s" (arg2))
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
             embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
