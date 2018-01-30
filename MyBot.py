@@ -72,7 +72,7 @@ async def on_message(message):
 
 @client.event
 async def on_member_join(member):
-    channel = discord.utils.get(message.server.channels, name='welcome', type=discord.ChannelType.text)
+    channel = discord.utils.get(client.servers.channels, name='welcome', type=discord.ChannelType.text)
     await client.change_nickname(member, "[Member]%s" % (member.name))
     randMessages = ["Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> thre is free wifi and pizza inside!" % (member.id)]
     randNum = randint(1, 5)
