@@ -90,7 +90,7 @@ async def on_message(message):
             print(type(channel.id))
             arg2 = " ".join(args[2:])
             print(arg2)
-            await client.send_message(client.get_channel(channel.id), "%s" (arg2))
+            await client.send_message(channel, "%s" (arg2))
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
             embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
             embed.add_field(name="Message:", value=arg2, inline=False)
