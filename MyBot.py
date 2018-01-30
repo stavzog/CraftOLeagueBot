@@ -87,7 +87,7 @@ async def on_message(message):
             arg1 = args[1]
             print(arg1)
             channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
-            print(type(channel.id))
+            print(type(channel))
             arg2 = " ".join(args[2:])
             print(arg2)
             await client.send_message(channel, "%s" (arg2))
