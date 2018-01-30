@@ -71,4 +71,4 @@ async def on_member_join(member):
 
 
 
-client.run("NDA2NzYwMDIwNDUwMDgyODM2.DU3q4A.8XrAUxZOTF-xB2X7Rv8qetUHb4A")
+client.run("NDA2NzYwMDIwNDUwMDgyODM2.DVG24w.gkYfCdaBYnSkRSvnEdZlqvqCIcY")
