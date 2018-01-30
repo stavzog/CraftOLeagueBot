@@ -47,6 +47,7 @@ async def on_message(message):
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
         embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
         embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
+        embed.add_field(name=":invitelink", value="Gives an invite links ot invite the bot", inline=False)
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":NICK"):
         args = message.content.split(" ")
@@ -75,6 +76,8 @@ async def on_message(message):
         embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
         embed.set_footer(text="None of the above can be turned off!")
         await client.send_message(message.channel, embed=embed)
+    if message.content.upper().startswith(":INVITELINK"):
+        await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
     
 
 
@@ -83,7 +86,7 @@ async def on_message(message):
 async def on_member_join(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
     await client.change_nickname(member, "[Member]%s" % (member.name))
-    randMessages = ["Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> there is free wifi and pizza inside!" % (member.id),"Looks like the God of Thunder, <@%s>, might stay for a dinner" % (member.id)]
+    randMessages = ["Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> there is free wifi and pizza inside!" % (member.id),"Looks like the God of Thunder, <@%s>, might stay for a dinner" % (member.id),"Hallo <@%s>, please ring doorbell and run, the dog needs exercise!" % (member.id),"Welcome <@%s>, to our neck of da woods" % (member.id),"<@%s> Smile, the paparatsi are coming" % (member.id), "If you forgot to bring popcorn <@%s>, I 'll call the dog" % (member.id),"Come and see our campfire <@%s>, where friends and marshmellows become **Toasted**" % (member.id)]
     randNum = math.floor(randint(1, 5))
     await client.send_message(channel, randMessages[randNum])
 
