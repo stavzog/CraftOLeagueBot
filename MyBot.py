@@ -3,6 +3,7 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 import asyncio
 import time
+from random import *
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = ":")
@@ -71,9 +72,11 @@ async def on_message(message):
 
 @client.event
 async def on_member_join(member):
-    #channel = discord.utils.get(message.server.channels, name='welcome', type=discord.ChannelType.text)
+    channel = discord.utils.get(message.server.channels, name='welcome', type=discord.ChannelType.text)
     await client.change_nickname(member, "[Member]%s" % (member.name))
-    await client.send_message(m)
+    randMessages = ["Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> thre is free wifi and pizza inside!" % (member.id)]
+    randNum = randint(1, 5)
+    await client.send_message(channel, randMessages[randNum])
 
 
 
