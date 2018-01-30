@@ -19,7 +19,7 @@ async def on_message(message):
     if message.content.upper().startswith(":OWNER"):
         userID = message.author.id
         server_owner = message.server.owner
-        await client.send_message(message.channel, "<@%s> the owner of this current server is <@" + server_owner.id +"> !" % (userID))
+        await client.send_message(message.channel, "<@%s> the owner of this current server is <@%s> !" % (userID, server_owner.id))
     if message.content.upper().startswith(":ANNOUNCE"):
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
