@@ -47,7 +47,7 @@ async def on_message(message):
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
         embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
         embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
-        embed.add_field(name=":invitelink", value="Gives an invite links ot invite the bot", inline=False)
+        embed.add_field(name=":invitelink", value="Gives an invite links to invite the bot", inline=False)
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":NICK"):
         args = message.content.split(" ")
