@@ -41,6 +41,7 @@ async def on_message(message):
         embed.add_field(name=":annouce [msg]", value="Announces [msg] in the announcements channel (Only for @Announcer role)", inline=False)
         embed.add_field(name=":cmembers", value="Counts all the members in the server", inline=False)
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
+        embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
         embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":NICK"):
