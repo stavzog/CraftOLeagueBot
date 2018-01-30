@@ -48,6 +48,7 @@ async def on_message(message):
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
         embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
         embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
+        embed.add_field(name=":msg [channel] [msg]", value="Sends [msg] to the txt channel called [channel]", inline=False)
         embed.add_field(name=":invitelink", value="Gives an invite links to invite the bot", inline=False)
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":NICK"):
@@ -79,7 +80,20 @@ async def on_message(message):
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":INVITELINK"):
         await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
-    
+    if message.content.upper().startswith(":SEND"):
+        role = discord.utils.get(message.server.roles,name="Announcer")
+        if role.id in [role.id for role in message.author.roles]:
+            args = message.content.split(" ")
+            arg1 = " ".join(args[1:])
+            channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
+            arg2 = " ".join(args[2:])
+            await client.send_message(channel, "%s" (arg2))
+            embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
+            embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
+            embed.add_field(name="Message:", value=arg2, inline=False)
+            await client.send_message(message.channel, embed=embed)
+            
+            
 
 
 
