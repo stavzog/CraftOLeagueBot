@@ -97,7 +97,7 @@ async def on_message(message):
             embed.add_field(name="Message:", value=arg2, inline=False)
             await client.send_message(message.channel, embed=embed)
         else:
-            await client.send_message(message.channel, "%s You don't have permission to use this command!")
+            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id))
             
             
 
