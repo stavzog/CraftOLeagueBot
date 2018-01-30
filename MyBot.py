@@ -70,7 +70,9 @@ async def on_message(message):
 
 @client.event
 async def on_member_join(member):
+    #channel = discord.utils.get(message.server.channels, name='welcome', type=discord.ChannelType.text)
     await client.change_nickname(member, "[Member]%s" % (member.name))
+    await client.send_message(m)
 
 
 
