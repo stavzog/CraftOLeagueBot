@@ -84,7 +84,7 @@ async def on_message(message):
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
             args = message.content.split(" ")
-            arg1 = " ".join(args[1:])
+            arg1 = args[1]
             print(arg1)
             channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
             print(channel.id)
