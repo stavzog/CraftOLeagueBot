@@ -70,7 +70,7 @@ async def on_message(message):
             await client.delete_message(msg)
     if message.content.upper().startswith(":SETUP"):
         embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
-        embed.add_field(name="Step 1"., value="You must have an announcements txt channel", inline=False)
+        embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
         embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
         embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
         embed.set_footer(text="None of the above can be turned off!")
