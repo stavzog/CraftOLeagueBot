@@ -18,8 +18,8 @@ async def on_ready():
 async def on_message(message):
     if message.content.upper().startswith(":OWNER"):
         userID = message.author.id
-        server_owner = discord.utils.get()
-        await client.send_message(message.channel, "<@%s> the Owner is MrRos" % (userID))
+        server_owner = message.server.owner
+        await client.send_message(message.channel, "<@%s> the owner of this current server is <@" + server_owner.id +"> !" % (userID))
     if message.content.upper().startswith(":ANNOUNCE"):
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
@@ -42,6 +42,7 @@ async def on_message(message):
         embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
         #embed.add_field(name=":owner", value="Displays the Owner of the server", inline=False)
         embed.add_field(name=":annouce [msg]", value="Announces [msg] in the announcements channel (Only for @Announcer role)", inline=False)
+        embed.add_field(name=":owner", value="The member who started the server", inline=False)
         embed.add_field(name=":cmembers", value="Counts all the members in the server", inline=False)
         embed.add_field(name=":setup", value="Bot Setup in order to work", inline=False)
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
