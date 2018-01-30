@@ -43,6 +43,7 @@ async def on_message(message):
         #embed.add_field(name=":owner", value="Displays the Owner of the server", inline=False)
         embed.add_field(name=":annouce [msg]", value="Announces [msg] in the announcements channel (Only for @Announcer role)", inline=False)
         embed.add_field(name=":cmembers", value="Counts all the members in the server", inline=False)
+        embed.add_field(name=":setup", value="Bot Setup in order to work", inline=False)
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
         embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
         embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
@@ -67,6 +68,13 @@ async def on_message(message):
         tmp = await client.send_message(message.channel, 'Clearing messages')
         async for msg in client.logs_from(message.channel):
             await client.delete_message(msg)
+    if message.content.upper().startswith(":SETUP"):
+        embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
+        embed.add_field(name="Step 1"., value="You must have an announcements txt channel", inline=False)
+        embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
+        embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
+        embed.set_footer(text="None of the above can be turned off!")
+        await client.send_message(message.channel, embed=embed)
     
 
 
