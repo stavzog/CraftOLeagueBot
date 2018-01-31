@@ -79,24 +79,6 @@ async def on_message(message):
         embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
         embed.set_footer(text="None of the above can be turned off!")
         await client.send_message(message.channel, embed=embed)
-    if message.content.upper().startswith(":INVITELINK"):
-        await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
-        role = discord.utils.get(message.server.roles,name="Announcer")
-        if role.id in [role.id for role in message.author.roles]:
-            args = message.content.split(" ")
-            arg1 = args[1]
-            print(arg1)
-            channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
-            print(type(channel))
-            arg2 = " ".join(args[2:])
-            print(arg2)
-            await client.send_message(channel, "%s" % (arg2))
-            embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-            embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
-            embed.add_field(name="Message:", value=arg2, inline=False)
-            await client.send_message(message.channel, embed=embed)
-        else:
-            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id)
     if message.content.upper().startswith(":RTGEN"):
         global counter
         global players
@@ -115,7 +97,26 @@ async def on_message(message):
                     await client.send_message(message.channel, "Team %s is: %s" % (counter, " ".join(players)))
                     team = []
                     players[player] = "Replaced"               
-            
+    
+    if message.content.upper().startswith(":INVITELINK"):
+        await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
+        role = discord.utils.get(message.server.roles,name="Announcer")
+        if role.id in [role.id for role in message.author.roles]:
+            args = message.content.split(" ")
+            arg1 = args[1]
+            print(arg1)
+            channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
+            print(type(channel))
+            arg2 = " ".join(args[2:])
+            print(arg2)
+            await client.send_message(channel, "%s" % (arg2))
+            embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
+            embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
+            embed.add_field(name="Message:", value=arg2, inline=False)
+            await client.send_message(message.channel, embed=embed)
+        else:
+            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id)
+                
 
 
 
