@@ -38,22 +38,7 @@ async def on_message(message):
             userID = message.author.id
             await client.send_message(message.channel, "<@%s> you do not have permission to use this command :)" % (userID))
     if message.content.upper().startswith(":HELP"):
-        role = discord.utils.get(message.server.roles,name="Announcer")
-        embed=discord.Embed(title="Help", description="Display all the commands", color=0x06ce97)
-        embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
-        #embed.add_field(name=":owner", value="Displays the Owner of the server", inline=False)
-        embed.add_field(name=":annouce [msg]", value="Announces [msg] in the announcements channel (Only for Announcer role)" , inline=False)
-        embed.add_field(name=":owner", value="The member who started the server", inline=False)
-        embed.add_field(name=":cmembers", value="Counts all the members in the server", inline=False)
-        embed.add_field(name=":setup", value="Bot Setup in order to work", inline=False)
-        embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
-        embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
-        embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
-        embed.add_field(name=":rnum [how many]", value="Gives [how many] random numbers", inline=False)
-        embed.add_field(name=":code [msg]", value="Makes an embed which says [msg]", inline=False)
-        embed.add_field(name=":msg [channel] [msg]", value="Sends [msg] to the txt channel called [channel] (Only for Annoucer role)", inline=False)
-        embed.add_field(name=":invitelink", value="Gives an invite links to invite the bot", inline=False)
-        await client.send_message(message.channel, embed=embed)
+        await client.send_message(message.channel,"``` \n Help \n :announce [msg] = Announces [msg] to the announcements(must have) channel \n :owner = Returns the owner of the current server \n :cmembers = Counts all the mebers of the server (including bots) \n :sentup = Returns bot setup needed to work \n :nick [nickname] = Sets your nickname to [nickname] \n :clear = Clears all the messages of the channel \n :binfo = Displays some bot info \n :rnum [how many] = Returns [how many] random numbers \n :code [msg] = Converts [msg] to an embed \n :msg [channel] [msg] = Sends [msg] to [channel] \n :invitelink = Gives an invite link to invite the bot")
     if message.content.upper().startswith(":NICK"):
         args = message.content.split(" ")
         await client.change_nickname(message.author, " ".join(args[1:]))
