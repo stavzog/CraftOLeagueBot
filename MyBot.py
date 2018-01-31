@@ -102,18 +102,20 @@ async def on_message(message):
         global counter
         global players
         global team
+        global player
+        team = []                             
         counter = 1                             
         args = message.content.split(" ")
         players = " ".join(args[1:])
         players = players.split(",")
-        for x in players:
-            x = floor(math.random(0,len(players))
-            team = []
-            team.append(players[x])
-            if len(team) >= players/4:
-                await client.send_message(message.channel, "Team %s is: %s" % (counter, " ".join(players)))
-                team = []     
-            
+        for player in players:
+            player = floor(math.random(0,len(players))
+            if players[player] != "Replaced":
+                team.append(players[player])
+                if len(team) >= players/4:
+                    await client.send_message(message.channel, "Team %s is: %s" % (counter, " ".join(players)))
+                    team = []
+                    players[player] = "Replaced"               
             
 
 
