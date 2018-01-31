@@ -115,7 +115,22 @@ async def on_message(message):
             await client.send_message(message.channel, embed=embed)
         else:
             await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id))
-                
+    if message.content.upper().startswith(":RNUM"):
+        args = message.content.split(" ")
+        args = " ".join(args[1:])
+        randnums = []
+        count = int(float(args))
+        for x in range(0, count):
+            num = math.floor(randint(1,9))
+            randnum.append(num)
+        await client.send_message(message.channel, "```css \n Random Numbers: %s \n ```" % (" ".join(randnum)))
+    if message.content.upper().startswith(":CODE"):
+        args = message.content.split(" ")
+        embed=discord.Embed()
+        embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
+        embed.add_field( value="%s" % (" ".join(args[1:])), inline=False)
+        await client.send_message(message.channel, embed=embed)
+        
 
 
 
