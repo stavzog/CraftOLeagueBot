@@ -12,7 +12,7 @@ client = commands.Bot(command_prefix = ":")
 @client.event
 async def on_ready():
     print("Bot is running! GG")
-    await client.change_presence(game=discord.Game(name=':help'))
+    await client.change_status(game=discord.Game(name='with :help'))
 
 @client.event
 async def on_message(message):
@@ -49,6 +49,8 @@ async def on_message(message):
         embed.add_field(name=":nick [nickname]", value="Set your nickname to [nickname]", inline=False)
         embed.add_field(name=":clear", value="Clears all the messages of the current channel", inline=False)
         embed.add_field(name=":binfo", value="Displays some bot info", inline=False)
+        embed.add_field(name=":rnum [how many]", value="Gives [how many] random numbers", inline=False)
+        embed.add_field(name=":code [msg]", value="Makes an embed which says [msg]", inline=False)
         embed.add_field(name=":msg [channel] [msg]", value="Sends [msg] to the txt channel called [channel] (Only for Annoucer role)", inline=False)
         embed.add_field(name=":invitelink", value="Gives an invite links to invite the bot", inline=False)
         await client.send_message(message.channel, embed=embed)
@@ -116,18 +118,18 @@ async def on_message(message):
         else:
             await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id))
     if message.content.upper().startswith(":RNUM"):
-        global randnum
+        global randnums
         args = message.content.split(" ")
         args = " ".join(args[1:])
         randnums = []
         count = int(float(args))
         for x in range(0, count):
             num = math.floor(randint(1,9))
-            randnum.append(num)
+            randnums.append(num)
         await client.send_message(message.channel, "```css \n Random Numbers: %s \n ```" % (" ".join(randnum)))
     if message.content.upper().startswith(":CODE"):
         args = message.content.split(" ")
-        embed=discord.Embed(description="%s" % (" ".join(args[1:])))
+        embed=discord.Embed(description="%s" % (" ".join(args[1:])), color=0x008080)
         embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
         await client.send_message(message.channel, embed=embed)
         
