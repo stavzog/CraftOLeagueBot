@@ -93,7 +93,7 @@ async def on_message(message):
             player = math.floor(randint(0,len(players)-1))
             if players[player] != "Replaced":
                 team.append(players[player])
-                if len(team) >= players/4:
+                if len(team) >= len(players)/4:
                     await client.send_message(message.channel, "Team %s is: %s" % (counter, " ".join(players)))
                     team = []
                     players[player] = "Replaced"               
