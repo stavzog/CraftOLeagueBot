@@ -90,7 +90,7 @@ async def on_message(message):
         players = " ".join(args[1:])
         players = players.split(",")
         for player in players:
-            player = math.floor(math.random(0,len(players)))
+            player = math.floor(randint(0,len(players)))
             if players[player] != "Replaced":
                 team.append(players[player])
                 if len(team) >= players/4:
@@ -100,15 +100,14 @@ async def on_message(message):
     
     if message.content.upper().startswith(":INVITELINK"):
         await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
+        
+    if message.content.upper().startswith(":MSG"):
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
             args = message.content.split(" ")
             arg1 = args[1]
-            print(arg1)
             channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
-            print(type(channel))
             arg2 = " ".join(args[2:])
-            print(arg2)
             await client.send_message(channel, "%s" % (arg2))
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
             embed.set_author(name="CraftOLeague", icon_url="https://stavzog.github.io/craftoleague/McAvatar.png")
