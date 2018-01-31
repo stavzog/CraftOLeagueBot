@@ -81,7 +81,6 @@ async def on_message(message):
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":INVITELINK"):
         await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
-    https://discord.gg/gFuac2rhttps://discord.gg/gFuac2r
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
             args = message.content.split(" ")
