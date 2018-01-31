@@ -126,6 +126,7 @@ async def on_message(message):
         for x in range(0, count):
             num = math.floor(randint(1,9))
             randnums.append(num)
+        randnums = str(randnums)
         await client.send_message(message.channel, "```css \n Random Numbers: %s \n ```" % (" ".join(randnums)))
     if message.content.upper().startswith(":CODE"):
         args = message.content.split(" ")
