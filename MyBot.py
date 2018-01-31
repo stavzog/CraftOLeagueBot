@@ -81,7 +81,7 @@ async def on_message(message):
         await client.send_message(message.channel, embed=embed)
     if message.content.upper().startswith(":INVITELINK"):
         await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
-    if message.content.upper().startswith(":MSG"):
+    https://discord.gg/gFuac2rhttps://discord.gg/gFuac2r
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
             args = message.content.split(" ")
@@ -97,7 +97,22 @@ async def on_message(message):
             embed.add_field(name="Message:", value=arg2, inline=False)
             await client.send_message(message.channel, embed=embed)
         else:
-            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id))
+            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id)
+    if message.content.upper().startswith(":RTGEN"):
+        global counter
+        global players
+        global team
+        counter = 1                             
+        args = message.content.split(" ")
+        players = " ".join(args[1:])
+        players = players.split(",")
+        for x in players:
+            x = floor(math.random(0,len(players))
+            team = []
+            team.append(players[x])
+            if len(team) >= players/4:
+                await client.send_message(message.channel, "Team %s is: %s" % (counter, " ".join(players)))
+                team = []     
             
             
 
@@ -107,7 +122,7 @@ async def on_message(message):
 async def on_member_join(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
     await client.change_nickname(member, "[Member]%s" % (member.name))
-    randMessages = ["Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> there is free wifi and pizza inside!" % (member.id),"Looks like the God of Thunder, <@%s>, might stay for a dinner" % (member.id),"Hallo <@%s>, please ring doorbell and run, the dog needs exercise!" % (member.id),"Welcome <@%s>, to our neck of da woods" % (member.id),"<@%s> Smile, the paparatsi are coming" % (member.id), "If you forgot to bring popcorn <@%s>, I 'll call the dog" % (member.id),"Come and see our campfire <@%s>, where friends and marshmellows become **Toasted**" % (member.id)]
+    randMessages = ["Welcome to our server <@%s>!" % (member.id),"Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> there is free wifi and pizza inside!" % (member.id),"Looks like the God of Thunder, <@%s>, might stay for a dinner" % (member.id),"Hallo <@%s>, please ring doorbell and run, the dog needs exercise!" % (member.id),"Welcome <@%s>, to our neck of da woods" % (member.id),"<@%s> Smile, the paparatsi are coming" % (member.id), "If you forgot to bring popcorn <@%s>, I 'll call the dog" % (member.id),"Come and see our campfire <@%s>, where friends and marshmellows become **Toasted**" % (member.id)]
     randNum = math.floor(randint(1, 5))
     await client.send_message(channel, randMessages[randNum])
 
