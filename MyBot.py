@@ -90,7 +90,7 @@ async def on_message(message):
         players = " ".join(args[1:])
         players = players.split(",")
         for player in players:
-            player = floor(math.random(0,len(players))
+            player = floor(math.random(0,len(players)))
             if players[player] != "Replaced":
                 team.append(players[player])
                 if len(team) >= players/4:
@@ -115,7 +115,7 @@ async def on_message(message):
             embed.add_field(name="Message:", value=arg2, inline=False)
             await client.send_message(message.channel, embed=embed)
         else:
-            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id)
+            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id))
                 
 
 
