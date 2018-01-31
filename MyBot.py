@@ -127,7 +127,7 @@ async def on_message(message):
             num = math.floor(randint(1,9))
             randnums.append(num)
         randnums = str(randnums)
-        await client.send_message(message.channel, "``` \n Random Numbers: %s \n ```" % (" ".join(randnums)))
+        await client.send_message(message.channel, "``` \n Random Numbers: %s \n ```" % (" ".join(randnums[0])))
     if message.content.upper().startswith(":CODE"):
         args = message.content.split(" ")
         embed=discord.Embed(description="%s" % (" ".join(args[1:])), color=0x008080)
