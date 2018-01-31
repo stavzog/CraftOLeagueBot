@@ -90,7 +90,7 @@ async def on_message(message):
         players = " ".join(args[1:])
         players = players.split(",")
         for player in players:
-            player = floor(math.random(0,len(players)))
+            player = math.floor(math.random(0,len(players)))
             if players[player] != "Replaced":
                 team.append(players[player])
                 if len(team) >= players/4:
