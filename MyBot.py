@@ -19,7 +19,7 @@ async def on_message(message):
     if message.content.upper().startswith(":OWNER"):
         userID = message.author.id
         server_owner = message.server.owner
-        await client.send_message(message.channel, "<@%s> the owner of this current server is <@%s> !" % (userID, server_owner.id))
+        await client.send_message(message.channel, "<@%s> the **owner** of this current server is <@%s> !" % (userID, server_owner.id))
     if message.content.upper().startswith(":ANNOUNCE"):
         role = discord.utils.get(message.server.roles,name="Announcer")
         if role.id in [role.id for role in message.author.roles]:
@@ -27,7 +27,7 @@ async def on_message(message):
             
             args = message.content.split(" ")
             channel = discord.utils.get(message.server.channels, name='announcements', type=discord.ChannelType.text)
-            await client.send_message(channel, "%s" % (" ".join(args[1:])))
+            await client.send_message(channel, "``` \n %s \n ```" % (" ".join(args[1:])))
             UserMsg = " ".join(args[1:])
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
             embed.set_author(name=client.user.name, icon_url="client.user.avatar_url")
