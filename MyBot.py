@@ -134,7 +134,7 @@ async def on_member_join(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
     await client.change_nickname(member, "[Member]%s" % (member.name))
     randMessages = ["Welcome to our server <@%s>!" % (member.id),"Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> there is free wifi and pizza inside!" % (member.id),"Looks like the God of Thunder, <@%s>, might stay for a dinner" % (member.id),"Hallo <@%s>, please ring doorbell and run, the dog needs exercise!" % (member.id),"Welcome <@%s>, to our neck of da woods" % (member.id),"<@%s> Smile, the paparatsi are coming" % (member.id), "If you forgot to bring popcorn <@%s>, I 'll call the dog" % (member.id),"Come and see our campfire <@%s>, where friends and marshmellows become **Toasted**" % (member.id),"I’ve been waiting in the corner, with honor, for your coming, with your daughter! Welcome <@%s>" % (member.id),"Can't welcome you <@%s>.I'm busy napping" % (member.id),"Welcome we are serving your bottle <@%s>" % (member.id),"Welcome <@%s>! You win a dog and a broken hand!" % (member.id)]
-    randNum = math.floor(randint(0, len(randMessages)))
+    randNum = math.floor(randint(0, len(randMessages)-1))
     await client.send_message(channel, randMessages[randNum])
 
 @client.event
