@@ -87,7 +87,7 @@ async def on_message(message):
                     players[player] = "Replaced"               
     
     if message.content.upper().startswith(":INVITELINK"):
-        await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591")
+        await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n ============= \n Join my server: https://discord.gg/gFuac2r \n")
         
     if message.content.upper().startswith(":MSG"):
         role = discord.utils.get(message.server.roles,name="Announcer")
