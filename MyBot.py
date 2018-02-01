@@ -30,7 +30,7 @@ async def on_message(message):
             await client.send_message(channel, "` \n %s \n `" % (" ".join(args[1:])))
             UserMsg = " ".join(args[1:])
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-            embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
+            embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
             embed.add_field(name="Message:", value=UserMsg, inline=False)
             await client.send_message(message.channel, embed=embed)
             
@@ -50,7 +50,7 @@ async def on_message(message):
         await client.send_message(message.author, "There are %s members in your server(I am counting the bots too)" % (memberCount))
     if message.content.upper().startswith(":BINFO"):
         embed=discord.Embed(title="Bot Info", description="Some information about the bot", color=0x7d7d7d)
-        embed.set_author(name=client.user.name, url=client.user.avatar_url)
+        embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
         embed.add_field(name="Creator:", value="The creator of the bot is <@398580757335113739>", inline=False)
         embed.add_field(name="Made for:", value="The bot was originally made for a discord server called Craft O' League", inline=False)
         embed.set_footer(text="Copyright %s" % (client.user.name))
@@ -61,7 +61,7 @@ async def on_message(message):
             await client.delete_message(msg)
     if message.content.upper().startswith(":SETUP"):
         embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
-        embed.set_author(name=client.user.name, url=client.user.avatar_url)
+        embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
         embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
         embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
         embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
@@ -98,7 +98,7 @@ async def on_message(message):
             arg2 = " ".join(args[2:])
             await client.send_message(channel, "%s" % (arg2))
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-            embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
+            embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
             embed.add_field(name="Message:", value=arg2, inline=False)
             await client.send_message(message.channel, embed=embed)
         else:
