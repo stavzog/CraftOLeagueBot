@@ -109,7 +109,7 @@ async def on_message(message):
         args = " ".join(args[1:])
         randnums = []
         count = int(float(args))
-        for x in range(1, count):
+        for x in range(count):
             num = math.floor(randint(1,9))
             randnums.append(num)
         randnums = str(randnums)
