@@ -120,6 +120,11 @@ async def on_message(message):
         embed=discord.Embed(description="%s" % (" ".join(args[1:])), color=0x008080)
         embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
         await client.send_message(message.channel, embed=embed)
+    if message.content.upper().startswith(":OCONTACT"):
+        args = message.content.split(" ")
+        embed=discord.Embed(description="%s" % (" ".join(args[1:])), color=0x008080)
+        embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
+        await client.send_message(message.author.server.owner, embed=embed)
         
 
 
