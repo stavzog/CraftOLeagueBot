@@ -30,7 +30,7 @@ async def on_message(message):
             await client.send_message(channel, "` \n %s \n `" % (" ".join(args[1:])))
             UserMsg = " ".join(args[1:])
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-            embed.set_author(name=client.user.name, icon_url="client.user.avatar_url")
+            embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
             embed.add_field(name="Message:", value=UserMsg, inline=False)
             await client.send_message(message.channel, embed=embed)
             
