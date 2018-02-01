@@ -27,7 +27,7 @@ async def on_message(message):
             
             args = message.content.split(" ")
             channel = discord.utils.get(message.server.channels, name='announcements', type=discord.ChannelType.text)
-            await client.send_message(channel, "``` \n %s \n ```" % (" ".join(args[1:])))
+            await client.send_message(channel, "` \n %s \n `" % (" ".join(args[1:])))
             UserMsg = " ".join(args[1:])
             embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
             embed.set_author(name=client.user.name, icon_url="client.user.avatar_url")
