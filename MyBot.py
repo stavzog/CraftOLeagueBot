@@ -130,7 +130,10 @@ async def on_member_join(member):
     randNum = math.floor(randint(1, 5))
     await client.send_message(channel, randMessages[randNum])
 
-
+@client.event
+async def on_member_remove(member):
+    channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
+    await client.send_message(channel, "Oh crap! <@%s> just left **%s**" % (member.id,member.server.name))
 
 
 
