@@ -140,7 +140,7 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
-    randMsg = ["Life is a series of hellos and goodbyes. I'm afraid is time for goodbye <@%s>" % (member.id),"Everybody has to leave, everybody has to leave their home and come back so they can love it again for all new reasons.Goodbye <@%s>" % (member.id),"This is not the end. It is not even the beginning of the end. But it is, perhaps, the end of the beginning.We must all goodbye <@%s> now" % (member.id),"After all we've been through, we finally have to goodbye <@%s> from %s" % (member.id,member.server.name)]
+    randMsg = ["Life is a series of hellos and goodbyes. I'm afraid it's time for goodbye <@%s>" % (member.id),"Everybody has to leave, everybody has to leave their home and come back so they can love it again for all new reasons.Goodbye <@%s>" % (member.id),"This is not the end. It is not even the beginning of the end. But it is, perhaps, the end of the beginning.We must all goodbye <@%s> now" % (member.id),"After all we've been through, we finally have to goodbye <@%s> from %s" % (member.id,member.server.name)]
     randNum = math.floor(randint(0, len(randMsg)-1))
     await client.send_message(channel, randMsg[randNum])
     
