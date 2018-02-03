@@ -163,6 +163,7 @@ async def ocontact(ctx, *, msg):
 async def ocontact_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:ocontact [msg]`")
     
+    
 @client.event
 async def on_member_join(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
@@ -170,6 +171,16 @@ async def on_member_join(member):
     randMessages = ["Welcome to our server <@{}>!".format(member.id),"Welcome to our firepit <@{}>".format(member.id),"Hey <@{}>, doorbell broken!Yell Ding Dong".format(member.id),"If our dog doesn't like u, we probbably won't either <@{}>".format(member.id),"<@{}> Beware of da... Aaam...Just beware!".format(member.id),"Well, <@{}> there is free wifi and pizza inside!".format(member.id),"Looks like the God of Thunder, <@{}>, might stay for a dinner".format(member.id),"Hallo <@{}>, please ring doorbell and run, the dog needs exercise!".format(member.id),"Welcome <@{}>, to our neck of da woods".format(member.id),"<@{}> Smile, the paparatsi are coming".format(member.id), "If you forgot to bring popcorn <@{}>, I 'll call the dog".format(member.id),"Come and see our campfire <@{}>, where friends and marshmellows become **Toasted**".format(member.id),"I’ve been waiting in the corner, with honor, for your coming, with your daughter! Welcome <@{}>".format(member.id),"Can't welcome you <@{}>.I'm busy napping".format(member.id),"Welcome we are serving your bottle <@{}>".format(member.id),"Welcome <@{}>! You win a dog and a broken hand!".format(member.id)]
     randNum = math.floor(randint(0, len(randMessages)-1))
     await client.send_message(channel, randMessages[randNum])
+
+    
+@client.command
+async def conmembers(ctx):
+    x = ctx.message.server.members
+    conmembs = []
+    for member in x:
+        if member.voice_channel != None:
+            conmembs.append(member.name)
+    await client.say("{}".format(" ".join(conmembs))       
 
 @client.event
 async def on_member_remove(member):
