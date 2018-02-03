@@ -18,7 +18,7 @@ async def on_ready():
 
 @client.command(pass_context=True)
 async def help(ctx):
-    await client.say("```css \n Help \n ------------------- \n :announce [msg] = Announces [msg] to the announcements(must have) channel \n \n :owner = Returns the owner of the current server \n \n :cmembers = Counts all the mebers of the server (including bots) \n \n :setup = Returns bot setup needed to work \n \n :nick [nickname] = Sets your nickname to [nickname] \n \n :clear = Clears all the messages of the channel \n \n :binfo = Displays some bot info \n \n :rnum [how many] = Returns [how many] random numbers \n \n :code [msg] = Converts [msg] to an embed \n \n :msg [channel] [msg] = Sends [msg] to [channel] \n \n :invitelink = Gives an invite link to invite the bot \n :ocontact [msg] = Sends [msg] the server owner (personal message) ```")
+    await client.say("```css \n Help \n ------------------- \n :announce [msg] = Announces [msg] to the announcements(must have) channel \n \n :owner = Returns the owner of the current server \n \n :cmembers = Counts all the mebers of the server (including bots) \n \n :setup = Returns bot setup needed to work \n \n :nick [nickname] = Sets your nickname to [nickname] \n \n :clear = Clears all the messages of the channel \n \n :binfo = Displays some bot info \n \n :rnum [how many] = Returns [how many] random numbers \n \n :code [msg] = Converts [msg] to an embed \n \n :msg [channel] [msg] = Sends [msg] to [channel] \n \n :invitelink = Gives an invite link to invite the bot \n \n :ocontact [msg] = Sends [msg] the server owner (personal message) \n \n :conmembers = Returns all members connected to (any) voice channel ```")
 
 @client.command(pass_context=True)
 async def member(ctx, user: discord.Member):
