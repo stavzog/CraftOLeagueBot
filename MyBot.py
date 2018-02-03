@@ -136,7 +136,7 @@ async def rnum(ctx, ammount):
         x = math.floor(randint(1,9))
         x = str(x)
         randnums.append(x)
-    await client.say("` \n Random Numbers: {} \n `".format(''.join(randnums)))
+    await client.say("` \n Random Numbers: {} \n `".format(' '.join(randnums)))
 @rnum.error
 async def rnum_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:rnum [how many]`")
