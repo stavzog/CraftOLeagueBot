@@ -42,10 +42,10 @@ async def announce(ctx, *, msg):
     else:
         userID = ctx.message.author.id
         await client.say("<@{}> you do not have permission to use this command :(".format(userID))
-@announce.error
+'''@announce.error
 async def announce_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:announce [msg]`")
-    print(error)
+    print(error)'''
 
 @client.command(pass_context=True)
 async def nick(ctx, *, nickname): 
@@ -54,10 +54,10 @@ async def nick(ctx, *, nickname):
     embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
     embed.add_field(name="Nickname", value=nickname, inline=False)
     await client.send_message(message.channel, embed=embed)
-@nick.error
+'''@nick.error
 async def nick_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:nick [nickname]`")
-    print(error)
+    print(error)'''
 
 @client.command(pass_context=True)
 async def serverinfo(ctx):
@@ -116,10 +116,10 @@ async def msg(ctx, chnl, *, cont):
     if role.id in [role.id for role in message.author.roles]:
         channel = discord.utils.get(ctx.message.server.channels, name=chnl, type=discord.ChannelType.text)
         await client.send_message(channel, "{}".format(cont))
-@msg.error
+'''@msg.error
 async def msg_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:msg [channel] [message]`")
-    print(error)
+    print(error)'''
 
 @client.command(pass_context=True)
 async def rnum(ctx, ammount):
@@ -131,10 +131,10 @@ async def rnum(ctx, ammount):
         x = str(x)
         randnums.append(x)
     await client.say("` \n Random Numbers: {} \n `".format(randnums))
-@rnum.error
+'''@rnum.error
 async def rnum_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:rnum [how many]`")
-    print(error)
+    print(error)'''
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
@@ -142,10 +142,10 @@ async def code(ctx, *, msg):
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.say(embed=embed)
-@code.error
+'''@code.error
 async def code_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:code [msg]`")
-    print(error)
+    print(error)'''
 
 @client.command(pass_context=True)
 async def ocontact(ctx, *, msg):
