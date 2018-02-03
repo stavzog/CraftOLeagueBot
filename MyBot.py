@@ -96,17 +96,17 @@ async def clear(ctx):
 
 @client.command(pass_context=True)
 async def setup(ctx):
-   embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
-   embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-   embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
-   embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
-   embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
-   embed.set_footer(text="None of the above can be turned off!")
-   await client.say(embed=embed) 
+    embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
+    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+    embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
+    embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
+    embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
+    embed.set_footer(text="None of the above can be turned off!")
+    await client.say(embed=embed) 
 
 @client.command(pass_context=True)
 async def invitelink(ctx):
-   await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n =========================== \n Join my server: https://discord.gg/gFuac2r \n")
+    await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n =========================== \n Join my server: https://discord.gg/gFuac2r \n")
 
 @client.command(pass_context=True)
 async def msg(ctx, chnl, *, cont):
@@ -134,7 +134,7 @@ async def rnum_on_error(ctx,error):
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
-   args = message.content.split(" ")
+    args = message.content.split(" ")
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.say(embed=embed)
