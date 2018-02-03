@@ -45,6 +45,7 @@ async def announce(ctx, *, msg):
 @announce.error
 async def announce_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:announce [msg]`")
+    print(error)
 
 @client.command(pass_context=True)
 async def nick(ctx, *, nickname): 
@@ -56,6 +57,7 @@ async def nick(ctx, *, nickname):
 @nick.error
 async def nick_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:nick [nickname]`")
+    print(error)
 
 @client.command(pass_context=True)
 async def serverinfo(ctx):
@@ -78,7 +80,7 @@ async def cmembers(ctx):
     x = ctx.message.server.members
     for member in x:
         memberCount = memberCount + 1
-    await client.say("There are {} in your server (with bots)".format(mumberCount))
+    await client.say("There are {} in your server (with bots)".format(memberCount))
 
 @client.command(pass_context=True)
 async def binfo(ctx):
@@ -106,7 +108,7 @@ async def setup(ctx):
 
 @client.command(pass_context=True)
 async def invitelink(ctx):
-    await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n =========================== \n Join my server: https://discord.gg/gFuac2r \n")
+    await client.say("Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n =========================== \n Join my server: https://discord.gg/gFuac2r \n")
 
 @client.command(pass_context=True)
 async def msg(ctx, chnl, *, cont):
@@ -117,6 +119,7 @@ async def msg(ctx, chnl, *, cont):
 @msg.error
 async def msg_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:msg [channel] [message]`")
+    print(error)
 
 @client.command(pass_context=True)
 async def rnum(ctx, ammount):
@@ -131,6 +134,7 @@ async def rnum(ctx, ammount):
 @rnum.error
 async def rnum_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:rnum [how many]`")
+    print(error)
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
@@ -141,12 +145,14 @@ async def code(ctx, *, msg):
 @code.error
 async def code_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:code [msg]`")
+    print(error)
 
 @client.command(pass_context=True)
 async def ocontact(ctx, *, msg):
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.send_message(ctx.message.author.server.owner, embed=embed)
+    await client.say("Message succefully sent!")
 
 @client.event
 async def on_member_join(member):
