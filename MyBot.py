@@ -26,7 +26,7 @@ async def member(ctx, user: discord.Member):
 @client.command(pass_context=True)
 async def owner(ctx):
     server_owner = ctx.message.server.owner.id
-    await client.send_message(message.channel, "The **owner** of this current server is <@{}> !".format(server_owner))
+    await client.say("The **owner** of this current server is <@{}> !".format(server_owner))
 
 @client.command(pass_context=True)
 async def announce(ctx, *, msg):
