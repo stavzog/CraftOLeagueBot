@@ -14,133 +14,152 @@ async def on_ready():
     print("Bot is running! GG")
     await client.change_presence(game=discord.Game(name='with :help'))
 
-@client.event
-async def on_message(message):
-    if message.content.upper().startswith(":OWNER"):
-        userID = message.author.id
-        server_owner = message.server.owner
-        await client.send_message(message.channel, "<@%s> the **owner** of this current server is <@%s> !" % (userID, server_owner.id))
-    if message.content.upper().startswith(":ANNOUNCE"):
-        role = discord.utils.get(message.server.roles,name="Announcer")
-        if role.id in [role.id for role in message.author.roles]:
-            userID = message.author.id
-            
-            args = message.content.split(" ")
-            channel = discord.utils.get(message.server.channels, name='announcements', type=discord.ChannelType.text)
-            await client.send_message(channel, "` \n %s \n `" % (" ".join(args[1:])))
-            UserMsg = " ".join(args[1:])
-            embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-            embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-            embed.add_field(name="Message:", value=UserMsg, inline=False)
-            await client.send_message(message.channel, embed=embed)
-            
-        else:
-            userID = message.author.id
-            await client.send_message(message.channel, "<@%s> you do not have permission to use this command :)" % (userID))
-    if message.content.upper().startswith(":HELP"):
-        await client.send_message(message.channel,"``` \n Help \n ------------------- \n :announce [msg] = Announces [msg] to the announcements(must have) channel \n \n :owner = Returns the owner of the current server \n \n :cmembers = Counts all the mebers of the server (including bots) \n \n :setup = Returns bot setup needed to work \n \n :nick [nickname] = Sets your nickname to [nickname] \n \n :clear = Clears all the messages of the channel \n \n :binfo = Displays some bot info \n \n :rnum [how many] = Returns [how many] random numbers \n \n :code [msg] = Converts [msg] to an embed \n \n :msg [channel] [msg] = Sends [msg] to [channel] \n \n :invitelink = Gives an invite link to invite the bot \n :ocontact [msg] = Sends [msg] the server owner (personal message) ```")
-    if message.content.upper().startswith(":NICK"):
-        args = message.content.split(" ")
-        await client.change_nickname(message.author, " ".join(args[1:]))
-    if message.content.upper().startswith(":CMEMBERS"):
-        memberCount = 0
-        x = message.server.members
-        for member in x:
-            memberCount = memberCount + 1
-        await client.send_message(message.author, "There are %s members in your server(I am counting the bots too)" % (memberCount))
-    if message.content.upper().startswith(":BINFO"):
-        embed=discord.Embed(title="Bot Info", description="Some information about the bot", color=0x7d7d7d)
-        embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-        embed.add_field(name="Creator:", value="The creator of the bot is <@398580757335113739>", inline=False)
-        embed.add_field(name="Made for:", value="The bot was originally made for a discord server called Craft O' League", inline=False)
-        embed.set_footer(text="Copyright %s" % (client.user.name))
-        await client.send_message(message.channel, embed=embed)
-    if message.content.startswith(":clear"):
-        tmp = await client.send_message(message.channel, 'Clearing messages')
-        async for msg in client.logs_from(message.channel):
-            await client.delete_message(msg)
-    if message.content.upper().startswith(":SETUP"):
-        embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
-        embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-        embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
-        embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
-        embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
-        embed.set_footer(text="None of the above can be turned off!")
-        await client.send_message(message.channel, embed=embed)
-    if message.content.upper().startswith(":RTGEN"):
-        global counter
-        global players
-        global team
-        global player
-        team = []                             
-        counter = 1                             
-        args = message.content.split(" ")
-        players = " ".join(args[1:])
-        players = players.split(",")
-        for player in players:
-            player = math.floor(randint(0,len(players)-1))
-            if players[player] != "Replaced":
-                team.append(players[player])
-                if len(team) >= len(players)/4:
-                    await client.send_message(message.channel, "Team %s is: %s" % (counter, " ".join(players)))
-                    team = []
-                    players[player] = "Replaced"               
-    
-    if message.content.upper().startswith(":INVITELINK"):
-        await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n ============= \n Join my server: https://discord.gg/gFuac2r \n")
         
-    if message.content.upper().startswith(":MSG"):
-        role = discord.utils.get(message.server.roles,name="Announcer")
-        if role.id in [role.id for role in message.author.roles]:
-            args = message.content.split(" ")
-            arg1 = args[1]
-            channel = discord.utils.get(message.server.channels, name=arg1, type=discord.ChannelType.text)
-            arg2 = " ".join(args[2:])
-            await client.send_message(channel, "%s" % (arg2))
-            embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-            embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-            embed.add_field(name="Message:", value=arg2, inline=False)
-            await client.send_message(message.channel, embed=embed)
-        else:
-            await client.send_message(message.channel, "<@%s> You don't have permission to use this command!" % (message.author.id))
-    if message.content.upper().startswith(":RNUM"):
-        global randnums
-        args = message.content.split(" ")
-        args = " ".join(args[1:])
-        randnums = []
-        count = int(float(args))
-        for x in range(count):
-            x = math.floor(randint(1,9))
-            x = str(x)
-            randnums.append(x)
-        print(randnums)
-        await client.send_message(message.channel, "` \n Random Numbers: %s \n `" % (" ".join(randnums)))
-    if message.content.upper().startswith(":CODE"):
-        args = message.content.split(" ")
-        embed=discord.Embed(description="%s" % (" ".join(args[1:])), color=0x008080)
-        embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
-        await client.send_message(message.channel, embed=embed)
-    if message.content.upper().startswith(":OCONTACT"):
-        args = message.content.split(" ")
-        embed=discord.Embed(description="%s" % (" ".join(args[1:])), color=0x008080)
-        embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
-        await client.send_message(message.author.server.owner, embed=embed)
-        
+@client.command(pass_context=True)
+async def member(ctx, user: discord.Member):
+    await client.say("The users name is: {}".format(user.name))
+    await client.say("The users ID is: {}".format(user.id))
+    await client.say("The users status is: {}".format(user.status))
+    await client.say("The users highest role is: {}".format(user.top_role))
+    await client.say("The user joined at: {}".format(user.joined_at))
 
+@client.command(pass_context=True)
+async def owner(ctx):
+    server_owner = ctx.message.server.owner.id
+    await client.send_message(message.channel, "The **owner** of this current server is <@{}> !".format(server_owner))
 
+@client.command(pass_context=True)
+async def announce(ctx, *, msg):
+    role = discord.utils.get(message.server.roles,name="Announcer")
+    if role.id in [role.id for role in message.author.roles]:
+        userID = ctx.message.author.id
+        channel = discord.utils.get(ctx.message.server.channels, name="announcements", type=discord.ChannelType.text)
+        await client.send_message(channel, "` \n {} \n ` ".format(' '.join(msg)))
+        embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
+        embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+        embed.add_field(name="Message:", value=msg, inline=False)
+        await client.say(embed=embed)
+    else:
+        userID = ctx.message.author.id
+        await client.say("<@{}> you do not have permission to use this command :(".format(userID))
+@announce.error
+async def announce_on_error(ctx, error):
+    await client.say("Ooops, check your spelling! \n `:announce [msg]`")
+
+@client.command(pass_context=True)
+async def nick(ctx, *, nickname): 
+    await client.change_nickname(ctx.message.author, nickname)
+    embed=discord.Embed(title="Nick changed", description="Your nickname was successfully changed", color=0x06ce97)
+    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+    embed.add_field(name="Nickname", value=, inline=False)
+    await client.send_message(message.channel, embed=embed)
+@nick.error
+async def nick_on_error(ctx,error):
+    await client.say("Ooops, check your spelling! \n `:nick [nickname]`")
+
+@client.command(pass_context=True)
+async def serverinfo(ctx):
+    memberCount = 0
+    x = ctx.message.server.members
+    for member in x:
+        memberCount = memberCount + 1
+    embed=discord.Embed(title="Server Info", color=0x06ce97)
+    embed.set_author(name=client.user.name, url="https://discord.gg/gFuac2r",, icon_url=client.user.avatar_url)
+    embed.set_thumbnail(url=ctx.message.server.icon_url)
+    embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
+    embed.add_field(name="Owner", value=ctx.message.server.owner.name, inline=True)
+    embed.add_field(name="Members", value=memberCount, inline=True)
+    embed.add_field(name="Region", value=ctx.message.server.region, inline=True)
+    await client.say(embed=embed)
+
+@client.command(pass_context=True)
+async def cmembers(ctx):
+    memberCount = 0
+    x = ctx.message.server.members
+    for member in x:
+        memberCount = memberCount + 1
+    await client.say("There are {} in your server (with bots)".format(mumberCount))
+
+@client.command(pass_context=True)
+async def binfo(ctx):
+    embed=discord.Embed(title="Bot Info", description="Some information about the bot", color=0x7d7d7d)
+    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+    embed.add_field(name="Creator:", value="The creator of the bot is <@398580757335113739>", inline=False)
+    embed.add_field(name="Made for:", value="The bot was originally made for a discord server called Craft O' League", inline=False)
+    await client.say( embed=embed)
+
+@client.command(pass_context=True)
+async def clear(ctx):
+    tmp = await client.send_message(ctx.message.channel, 'Clearing messages')
+    async for msg in client.logs_from(ctx.message.channel):
+        await client.delete_message(msg)
+
+@client.command(pass_context=True)
+async def setup(ctx):
+   embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
+    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+    embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
+    embed.add_field(name="Step 2.", value="You must have an Announcer role (capitalization counts)", inline=True)
+    embed.add_field(name="Step 3.", value="You must have a welcome channel", inline=True)
+    embed.set_footer(text="None of the above can be turned off!")
+    await client.say(embed=embed) 
+
+@client.command(pass_context=True)
+async def invitelink(ctx):
+    await client.send_message(message.channel, "Link: \n https://discordapp.com/oauth2/authorize?client_id=406760020450082836&scope=bot&permissions=2146958591 \n =========================== \n Join my server: https://discord.gg/gFuac2r \n")
+
+@client.command(pass_context=True)
+async def msg(ctx, chnl, *, cont):
+    role = discord.utils.get(ctx.message.server.roles,name="Announcer")
+    if role.id in [role.id for role in message.author.roles]:
+        channel = discord.utils.get(ctx.message.server.channels, name=chnl, type=discord.ChannelType.text)
+        await client.send_message(channel, "{}".format(cont))
+@msg.error
+async def msg_on_error(ctx, error):
+    await client.say("Ooops, check your spelling! \n `:msg [channel] [message]`")
+
+@client.command(pass_context=True)
+async def rnum(ctx, ammount):
+    global randnums
+    randnums = []
+    count = int(float(args))
+    for x in range(count):
+        x = math.floor(randint(1,9))
+        x = str(x)
+        randnums.append(x)
+    await client.say("` \n Random Numbers: {} \n `".format(randnums))
+@rnum.error
+async def rnum_on_error(ctx,error):
+    await client.say("Ooops, check your spelling! \n `:rnum [how many]`")
+
+@client.command(pass_context=True)
+async def code(ctx, *, msg):
+   args = message.content.split(" ")
+    embed=discord.Embed(description="{}".format(msg), color=0x008080)
+    embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
+    await client.say(embed=embed)
+@code.error
+async def code_on_error(ctx, error):
+    await client.say("Ooops, check your spelling! \n `:code [msg]`")
+
+@client.command(pass_context=True)
+async def ocontact(ctx, *, msg):
+    embed=discord.Embed(description="{}".format(msg), color=0x008080)
+    embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
+    await client.send_message(ctx.message.author.server.owner, embed=embed)
 
 @client.event
 async def on_member_join(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
-    await client.change_nickname(member, "[Member]%s" % (member.name))
-    randMessages = ["Welcome to our server <@%s>!" % (member.id),"Welcome to our firepit <@%s>" % (member.id),"Hey <@%s>, doorbell broken!Yell Ding Dong" % (member.id),"If our dog doesn't like u, we probbably won't either <@%s>" % (member.id),"<@%s> Beware of da... Aaam...Just beware!" % (member.id),"Well, <@%s> there is free wifi and pizza inside!" % (member.id),"Looks like the God of Thunder, <@%s>, might stay for a dinner" % (member.id),"Hallo <@%s>, please ring doorbell and run, the dog needs exercise!" % (member.id),"Welcome <@%s>, to our neck of da woods" % (member.id),"<@%s> Smile, the paparatsi are coming" % (member.id), "If you forgot to bring popcorn <@%s>, I 'll call the dog" % (member.id),"Come and see our campfire <@%s>, where friends and marshmellows become **Toasted**" % (member.id),"I’ve been waiting in the corner, with honor, for your coming, with your daughter! Welcome <@%s>" % (member.id),"Can't welcome you <@%s>.I'm busy napping" % (member.id),"Welcome we are serving your bottle <@%s>" % (member.id),"Welcome <@%s>! You win a dog and a broken hand!" % (member.id)]
+    await client.change_nickname(member, "[Member]{}" % (member.name))
+    randMessages = ["Welcome to our server <@{}>!".format(member.id),"Welcome to our firepit <@{}>".format(member.id),"Hey <@{}>, doorbell broken!Yell Ding Dong".format(member.id),"If our dog doesn't like u, we probbably won't either <@{}>".format(member.id),"<@{}> Beware of da... Aaam...Just beware!".format(member.id),"Well, <@{}> there is free wifi and pizza inside!".format(member.id),"Looks like the God of Thunder, <@{}>, might stay for a dinner".format(member.id),"Hallo <@{}>, please ring doorbell and run, the dog needs exercise!".format(member.id),"Welcome <@{}>, to our neck of da woods".format(member.id),"<@{}> Smile, the paparatsi are coming".format(member.id), "If you forgot to bring popcorn <@{}>, I 'll call the dog".format(member.id),"Come and see our campfire <@{}>, where friends and marshmellows become **Toasted**".format(member.id),"I’ve been waiting in the corner, with honor, for your coming, with your daughter! Welcome <@{}>".format(member.id),"Can't welcome you <@{}>.I'm busy napping".format(member.id),"Welcome we are serving your bottle <@{}>".format(member.id),"Welcome <@{}>! You win a dog and a broken hand!".format(member.id)]
     randNum = math.floor(randint(0, len(randMessages)-1))
     await client.send_message(channel, randMessages[randNum])
 
 @client.event
 async def on_member_remove(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
-    randMsg = ["Life is a series of hellos and goodbyes. I'm afraid it's time for goodbye <@%s>" % (member.id),"Everybody has to leave, everybody has to leave their home and come back so they can love it again for all new reasons.Goodbye <@%s>" % (member.id),"This is not the end. It is not even the beginning of the end. But it is, perhaps, the end of the beginning.We must all goodbye <@%s> now" % (member.id),"After all we've been through, we finally have to goodbye <@%s> from %s" % (member.id,member.server.name)]
+    randMsg = ["Life is a series of hellos and goodbyes. I'm afraid it's time for goodbye <@{}>".format(member.id),"Everybody has to leave, everybody has to leave their home and come back so they can love it again for all new reasons.Goodbye <@{}>".format(member.id),"This is not the end. It is not even the beginning of the end. But it is, perhaps, the end of the beginning.We must all goodbye <@{}> now".format(member.id),"After all we've been through, we finally have to goodbye <@{}> from {}".format(member.id,member.server.name)]
     randNum = math.floor(randint(0, len(randMsg)-1))
     await client.send_message(channel, randMsg[randNum])
     
