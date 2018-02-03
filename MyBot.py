@@ -64,7 +64,7 @@ async def serverinfo(ctx):
     for member in x:
         memberCount = memberCount + 1
     embed=discord.Embed(title="Server Info", color=0x06ce97)
-    embed.set_author(name=client.user.name, url="https://discord.gg/gFuac2r",, icon_url=client.user.avatar_url)
+    embed.set_author(name=client.user.name, url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
     embed.add_field(name="Owner", value=ctx.message.server.owner.name, inline=True)
