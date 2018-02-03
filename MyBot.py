@@ -30,7 +30,7 @@ async def owner(ctx):
 
 @client.command(pass_context=True)
 async def announce(ctx, *, msg):
-    role = discord.utils.get(message.server.roles,name="Announcer")
+    role = discord.utils.get(ctx.message.server.roles,name="Announcer")
     if role.id in [role.id for role in message.author.roles]:
         userID = ctx.message.author.id
         channel = discord.utils.get(ctx.message.server.channels, name="announcements", type=discord.ChannelType.text)
@@ -54,10 +54,9 @@ async def nick(ctx, *, nickname):
     embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
     embed.add_field(name="Nickname", value=nickname, inline=False)
     await client.send_message(message.channel, embed=embed)
-'''@nick.error
+@nick.error
 async def nick_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:nick [nickname]`")
-    print(error)'''
 
 @client.command(pass_context=True)
 async def serverinfo(ctx):
@@ -113,7 +112,7 @@ async def invitelink(ctx):
 @client.command(pass_context=True)
 async def msg(ctx, chnl, *, cont):
     role = discord.utils.get(ctx.message.server.roles,name="Announcer")
-    if role.id in [role.id for role in message.author.roles]:
+    if role.id in [role.id for role in ctx.message.author.roles]:
         channel = discord.utils.get(ctx.message.server.channels, name=chnl, type=discord.ChannelType.text)
         await client.send_message(channel, "{}".format(cont))
 '''@msg.error
@@ -125,7 +124,7 @@ async def msg_on_error(ctx, error):
 async def rnum(ctx, ammount):
     global randnums
     randnums = []
-    count = int(float(args))
+    count = int(float(ammount))
     for x in range(count):
         x = math.floor(randint(1,9))
         x = str(x)
@@ -138,7 +137,6 @@ async def rnum_on_error(ctx,error):
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
-    args = message.content.split(" ")
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.say(embed=embed)
@@ -153,7 +151,10 @@ async def ocontact(ctx, *, msg):
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.send_message(ctx.message.author.server.owner, embed=embed)
     await client.say("Message succefully sent!")
-
+@ocontact.error
+async def ocontact_on_error(ctx,error):
+    await client.say("Ooops, check your spelling! \n `:ocontact [msg]`")
+    
 @client.event
 async def on_member_join(member):
     channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
