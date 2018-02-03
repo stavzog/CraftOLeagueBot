@@ -139,7 +139,7 @@ async def rnum(ctx, ammount):
     await client.say("` \n Random Numbers: {} \n `".format(''.join(randnums)))
 @rnum.error
 async def rnum_on_error(ctx,error):
-    await client.say("Ooops, check your spelling! \n `:rnum [how many]`)
+    await client.say("Ooops, check your spelling! \n `:rnum [how many]`")
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
