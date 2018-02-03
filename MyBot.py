@@ -163,7 +163,7 @@ async def ocontact(ctx, *, msg):
 async def ocontact_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:ocontact [msg]`")
     
-@client.command
+@client.command(pass_context=True)
 async def conmembers(ctx):
     x = ctx.message.server.members
     conmembs = []
