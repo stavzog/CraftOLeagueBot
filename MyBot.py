@@ -170,7 +170,11 @@ async def conmembers(ctx):
     for member in x:
         if member.voice_channel != None:
             conmembs.append(member.name)
-    await client.say("{}".format(" ".join(conmembs))) 
+            
+    if conmembs == None:
+        await client.say("No members are connected to a voice channel")
+    else:
+        await client.say("{}".format(" ".join(conmembs)))
     
     
 @client.event
