@@ -31,7 +31,7 @@ async def owner(ctx):
 @client.command(pass_context=True)
 async def announce(ctx, *, msg):
     role = discord.utils.get(ctx.message.server.roles,name="Announcer")
-    if role.id in [role.id for role in message.author.roles]:
+    if role.id in [role.id for role in ctx.message.author.roles]:
         userID = ctx.message.author.id
         channel = discord.utils.get(ctx.message.server.channels, name="announcements", type=discord.ChannelType.text)
         await client.send_message(channel, "` \n {} \n ` ".format(' '.join(msg)))
@@ -42,10 +42,9 @@ async def announce(ctx, *, msg):
     else:
         userID = ctx.message.author.id
         await client.say("<@{}> you do not have permission to use this command :(".format(userID))
-'''@announce.error
+@announce.error
 async def announce_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:announce [msg]`")
-    print(error)'''
 
 @client.command(pass_context=True)
 async def nick(ctx, *, nickname): 
@@ -115,10 +114,13 @@ async def msg(ctx, chnl, *, cont):
     if role.id in [role.id for role in ctx.message.author.roles]:
         channel = discord.utils.get(ctx.message.server.channels, name=chnl, type=discord.ChannelType.text)
         await client.send_message(channel, "{}".format(cont))
-'''@msg.error
+        embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
+        embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+        embed.add_field(name="Message:", value=msg, inline=False)
+        await client.say(embed=embed)
+@msg.error
 async def msg_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:msg [channel] [message]`")
-    print(error)'''
 
 @client.command(pass_context=True)
 async def rnum(ctx, ammount):
@@ -129,28 +131,33 @@ async def rnum(ctx, ammount):
         x = math.floor(randint(1,9))
         x = str(x)
         randnums.append(x)
-    await client.say("` \n Random Numbers: {} \n `".format(randnums))
-'''@rnum.error
+    await client.say("` \n Random Numbers: {} \n `".format(''.join(randnums)))
+@rnum.error
 async def rnum_on_error(ctx,error):
-    await client.say("Ooops, check your spelling! \n `:rnum [how many]`")
-    print(error)'''
+    await client.say("Ooops, check your spelling! \n `:rnum [how many]`)
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.say(embed=embed)
-'''@code.error
+    embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
+    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+    embed.add_field(name="Message:", value=msg, inline=False)
+    await client.say(embed=embed)
+@code.error
 async def code_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:code [msg]`")
-    print(error)'''
 
 @client.command(pass_context=True)
 async def ocontact(ctx, *, msg):
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.send_message(ctx.message.author.server.owner, embed=embed)
-    await client.say("Message succefully sent!")
+    embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
+    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
+    embed.add_field(name="Message:", value=msg, inline=False)
+    await client.say(embed=embed)
 @ocontact.error
 async def ocontact_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:ocontact [msg]`")
