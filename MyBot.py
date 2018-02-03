@@ -51,7 +51,7 @@ async def nick(ctx, *, nickname):
     await client.change_nickname(ctx.message.author, nickname)
     embed=discord.Embed(title="Nick changed", description="Your nickname was successfully changed", color=0x06ce97)
     embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-    embed.add_field(name="Nickname", value=, inline=False)
+    embed.add_field(name="Nickname", value=nickname, inline=False)
     await client.send_message(message.channel, embed=embed)
 @nick.error
 async def nick_on_error(ctx,error):
