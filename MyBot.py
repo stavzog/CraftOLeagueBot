@@ -146,10 +146,6 @@ async def code(ctx, *, msg):
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.say(embed=embed)
-    embed=discord.Embed(title="Msg sent", description="Your message was successfully sent", color=0x06ce97)
-    embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
-    embed.add_field(name="Message:", value=msg, inline=False)
-    await client.say(embed=embed)
 @code.error
 async def code_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:code [msg]`")
