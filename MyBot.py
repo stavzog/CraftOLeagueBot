@@ -163,6 +163,15 @@ async def ocontact(ctx, *, msg):
 async def ocontact_on_error(ctx,error):
     await client.say("Ooops, check your spelling! \n `:ocontact [msg]`")
     
+@client.command
+async def conmembers(ctx):
+    x = ctx.message.server.members
+    conmembs = []
+    for member in x:
+        if member.voice_channel != None:
+            conmembs.append(member.name)
+    await client.say("{}".format(" ".join(conmembs))  
+    
     
 @client.event
 async def on_member_join(member):
@@ -173,14 +182,7 @@ async def on_member_join(member):
     await client.send_message(channel, randMessages[randNum])
 
     
-@client.command
-async def conmembers(ctx):
-    x = ctx.message.server.members
-    conmembs = []
-    for member in x:
-        if member.voice_channel != None:
-            conmembs.append(member.name)
-    await client.say("{}".format(" ".join(conmembs))       
+     
 
 @client.event
 async def on_member_remove(member):
