@@ -45,7 +45,7 @@ async def load(ctx, extension_name : str):
 async def _reload(self, *, module : str):
     """Reloads a module."""
 	role = discord.utils.get(ctx.message.server.roles,name="Owner")
-    if role.id in [role.id for role in ctx.message.author.roles]:
+   	if role.id in [role.id for role in ctx.message.author.roles]:
 		try:
 			client.unload_extension(module)
 			client.load_extension(module)
