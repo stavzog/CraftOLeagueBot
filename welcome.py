@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Optional():
+class Welcome():
 	def __init__(self,bot):
 		self.bot = bot
 
@@ -19,5 +19,5 @@ class Optional():
 		await client.send_message(channel, randMsg[randNum])
 
 def setup(bot):
-	bot.add_cog(Optional(bot))
+	bot.add_cog(Welcome(bot))
     
