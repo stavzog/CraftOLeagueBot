@@ -48,7 +48,7 @@ async def _reload(self, *, module : str):
    	if role.id in [role.id for role in ctx.message.author.roles]:
 		try:
 			client.unload_extension(module)
-			client.load_extension(module)
+		    client.load_extension(module)
 		except Exception as e:
 			await client.say('\N{PISTOL}')
 			await client.say('{}: {}'.format(type(e).__name__, e))
