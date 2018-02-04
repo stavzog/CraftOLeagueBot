@@ -9,6 +9,9 @@ import math
 Client = discord.Client()
 client = commands.Bot(command_prefix = ":")
 
+# this specifies what extensions to load when the bot starts up
+startup_extensions = ["optional"]
+
 @client.event
 async def on_ready():
     print("Bot is running! GG")
@@ -23,6 +26,28 @@ async def member(ctx, user: discord.Member):
     await client.say("The users status is: {}".format(user.status))
     await client.say("The users highest role is: {}".format(user.top_role))
     await client.say("The user joined at: {}".format(user.joined_at))
+    
+@client.command()
+async def load(ctx, extension_name : str):
+    """Loads an extension."""
+    role = discord.utils.get(ctx.message.server.roles,name="Owner")
+    if role.id in [role.id for role in ctx.message.author.roles]:
+        try:
+            client.load_extension(extension_name)
+        except (AttributeError, ImportError) as e:
+            await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+            return
+        await client.say("{} loaded.".format(extension_name))
+    else:
+        await client.say("You don't have permission to use this command!")
+        
+@bot.command()
+async def unload(ctx, extension_name : str):
+    """Unloads an extension."""
+    role = discord.utils.get(ctx.message.server.roles,name="Owner")
+    if role.id in [role.id for role in ctx.message.author.roles]:
+        client.unload_extension(extension_name)
+        await client.say("{} unloaded.".format(extension_name))
 
 @client.command(pass_context=True)
 async def owner(ctx):
@@ -184,6 +209,13 @@ async def conmembers(ctx):
         await client.say("No members are connected to a voice channel")
     else:
         await client.say("{}".format(" ".join(conmembs)))
+        
+for extension in startup_extensions:
+        try:
+            client.load_extension(extension)
+        except Exception as e:
+            exc = '{}: {}'.format(type(e).__name__, e)
+            print('Failed to load extension {}\n{}'.format(extension, exc))
     
     
 @client.event
