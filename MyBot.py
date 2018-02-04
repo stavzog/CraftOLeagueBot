@@ -37,7 +37,7 @@ async def load(ctx, extension_name : str):
         return
     await client.say("{} loaded.".format(extension_name))
     
-@commands.command(name='reload', hidden=True, pass_context=True)
+@client.command(name='reload', hidden=True, pass_context=True)
     async def _reload(ctx, *, module : str):
         """Reloads a module."""
         try:
