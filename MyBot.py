@@ -33,7 +33,7 @@ async def load(ctx, extension_name : str):
     role = discord.utils.get(ctx.message.server.roles,name="Owner")
     if role.id in [role.id for role in ctx.message.author.roles]:
         try:
-        	client.load_extension(extension_name)
+	client.load_extension(extension_name)
     	except (AttributeError, ImportError) as e:
         	await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
         	return
@@ -48,17 +48,15 @@ async def _reload(self, *, module : str):
    	if role.id in [role.id for role in ctx.message.author.roles]:
 		try:
 			client.unload_extension(module)
-		    client.load_extension(module)
+			client.load_extension(module)
 		except Exception as e:
 			await client.say('\N{PISTOL}')
 			await client.say('{}: {}'.format(type(e).__name__, e))
 		else:
 			await client.say('\N{OK HAND SIGN}')
 	else:
-		await client.say("You don't have permission to use this command!")
-		
-	 
-        
+		await client.say("You don't have permission to use this command!")	 
+
 @client.command(pass_context=True)
 async def unload(ctx, extension_name : str):
     """Unloads an extension."""
