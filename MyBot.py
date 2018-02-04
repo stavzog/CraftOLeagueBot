@@ -27,7 +27,7 @@ async def member(ctx, user: discord.Member):
     await client.say("The users highest role is: {}".format(user.top_role))
     await client.say("The user joined at: {}".format(user.joined_at))
     
-@client.command()
+@client.command(pass_context=True)
 async def load(ctx, extension_name : str):
     """Loads an extension."""
     role = discord.utils.get(ctx.message.server.roles,name="Owner")
@@ -41,7 +41,7 @@ async def load(ctx, extension_name : str):
     else:
         await client.say("You don't have permission to use this command!")
         
-@client.command()
+@client.command(pass_context=True)
 async def unload(ctx, extension_name : str):
     """Unloads an extension."""
     role = discord.utils.get(ctx.message.server.roles,name="Owner")
