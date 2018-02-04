@@ -41,7 +41,7 @@ async def load(ctx, extension_name : str):
     else:
         await client.say("You don't have permission to use this command!")
         
-@bot.command()
+@client.command()
 async def unload(ctx, extension_name : str):
     """Unloads an extension."""
     role = discord.utils.get(ctx.message.server.roles,name="Owner")
