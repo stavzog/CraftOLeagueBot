@@ -40,7 +40,8 @@ async def load(ctx, extension_name : str):
         await client.say("{} loaded.".format(extension_name))
     else:
         await client.say("You don't have permission to use this command!")
-@commands.command(name='reload', hidden=True)
+		
+@client.command(name='reload', hidden=True, pass_context=True)
 async def _reload(self, *, module : str):
     """Reloads a module."""
 	role = discord.utils.get(ctx.message.server.roles,name="Owner")
