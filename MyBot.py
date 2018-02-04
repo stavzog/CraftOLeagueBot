@@ -100,7 +100,7 @@ async def nick(ctx, *, nickname):
     embed.add_field(name="Nickname", value=nickname, inline=False)
     await client.send_message(message.channel, embed=embed)
 @nick.error
-async def nick_on_error(ctx,error):
+async def nick_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:nick [nickname]`")
 
 @client.command(pass_context=True)
