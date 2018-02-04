@@ -10,7 +10,7 @@ Client = discord.Client()
 client = commands.Bot(command_prefix = ":")
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["welcome","otional"]
+startup_extensions = ["welcome","optional"]
 
 @client.event
 async def on_ready():
@@ -117,7 +117,7 @@ async def cmembers(ctx):
     x = ctx.message.server.members
     for member in x:
         memberCount = memberCount + 1
-    await client.say("There are {} in your server (with bots)".format(memberCount))
+    await client.say("There are {} **members** in your server (with bots)".format(memberCount))
 
 @client.command(pass_context=True)
 async def binfo(ctx):
