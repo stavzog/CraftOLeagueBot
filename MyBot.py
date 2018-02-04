@@ -36,6 +36,18 @@ async def load(ctx, extension_name : str):
         await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
         return
     await client.say("{} loaded.".format(extension_name))
+    
+@commands.command(name='reload', hidden=True, pass_context=True)
+    async def _reload(ctx, *, module : str):
+        """Reloads a module."""
+        try:
+            client.unload_extension(module)
+            client.load_extension(module)
+        except Exception as e:
+            await client.say('\N{PISTOL}')
+            await client.say('{}: {}'.format(type(e).__name__, e))
+        else:
+            await client.say('\N{OK HAND SIGN}')
 
 @client.command(pass_context=True)
 async def unload(ctx, extension_name : str):
