@@ -10,7 +10,7 @@ Client = discord.Client()
 client = commands.Bot(command_prefix = ":")
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["optional"]
+startup_extensions = ["welcome"]
 
 @client.event
 async def on_ready():
