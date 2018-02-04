@@ -41,21 +41,7 @@ async def load(ctx, extension_name : str):
     else:
         await client.say("You don't have permission to use this command!")
 		
-@client.command(name='reload', hidden=True, pass_context=True)
-async def _reload(self, *, module : str):
-    """Reloads a module."""
-	role = discord.utils.get(ctx.message.server.roles,name="Owner")
-   	if role.id in [role.id for role in ctx.message.author.roles]:
-		try:
-			client.unload_extension(module)
-		    client.load_extension(module)
-		except Exception as e:
-			await client.say('\N{PISTOL}')
-			await client.say('{}: {}'.format(type(e).__name__, e))
-		else:
-			await client.say('\N{OK HAND SIGN}')
-	else:
-		await client.say("You don't have permission to use this command!")
+
      
         
 @client.command(pass_context=True)
