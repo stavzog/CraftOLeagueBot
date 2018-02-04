@@ -8,7 +8,6 @@ import math
 
 Client = discord.Client()
 client = commands.Bot(command_prefix = ":")
-client.remove_command("help")
 
 @client.event
 async def on_ready():
@@ -17,11 +16,8 @@ async def on_ready():
 
 
 @client.command(pass_context=True)
-async def help(ctx):
-    await client.say("```css \n Help \n ------------------- \n :announce [msg] = Announces [msg] to the announcements(must have) channel \n \n :owner = Returns the owner of the current server \n \n :cmembers = Counts all the mebers of the server (including bots) \n \n :setup = Returns bot setup needed to work \n \n :nick [nickname] = Sets your nickname to [nickname] \n \n :clear = Clears all the messages of the channel \n \n :binfo = Displays some bot info \n \n :rnum [how many] = Returns [how many] random numbers \n \n :code [msg] = Converts [msg] to an embed \n \n :msg [channel] [msg] = Sends [msg] to [channel] \n \n :invitelink = Gives an invite link to invite the bot \n \n :ocontact [msg] = Sends [msg] the server owner (personal message) \n \n :conmembers = Returns all members connected to (any) voice channel ```")
-
-@client.command(pass_context=True)
 async def member(ctx, user: discord.Member):
+    """Dispaly info about the member"""
     await client.say("The users name is: {}".format(user.name))
     await client.say("The users ID is: {}".format(user.id))
     await client.say("The users status is: {}".format(user.status))
@@ -30,11 +26,13 @@ async def member(ctx, user: discord.Member):
 
 @client.command(pass_context=True)
 async def owner(ctx):
+    """Return the server owner"""
     server_owner = ctx.message.server.owner.id
     await client.say("The **owner** of this current server is <@{}> !".format(server_owner))
 
 @client.command(pass_context=True)
 async def announce(ctx, *, msg):
+    """Sends a message to the announcements channel"""
     role = discord.utils.get(ctx.message.server.roles,name="Announcer")
     if role.id in [role.id for role in ctx.message.author.roles]:
         userID = ctx.message.author.id
@@ -52,7 +50,8 @@ async def announce_on_error(ctx, error):
     await client.say("Ooops, check your spelling! \n `:announce [msg]`")
 
 @client.command(pass_context=True)
-async def nick(ctx, *, nickname): 
+async def nick(ctx, *, nickname):
+    """Changes nickname """
     await client.change_nickname(ctx.message.author, nickname)
     embed=discord.Embed(title="Nick changed", description="Your nickname was successfully changed", color=0x06ce97)
     embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
@@ -64,6 +63,7 @@ async def nick_on_error(ctx,error):
 
 @client.command(pass_context=True)
 async def serverinfo(ctx):
+    """Gives info about the server"""
     memberCount = 0
     x = ctx.message.server.members
     for member in x:
@@ -79,6 +79,7 @@ async def serverinfo(ctx):
 
 @client.command(pass_context=True)
 async def cmembers(ctx):
+    """Counts all the members(bots too)"""
     memberCount = 0
     x = ctx.message.server.members
     for member in x:
@@ -87,6 +88,7 @@ async def cmembers(ctx):
 
 @client.command(pass_context=True)
 async def binfo(ctx):
+    """Displayes bot info"""
     embed=discord.Embed(title="Bot Info", description="Some information about the bot", color=0x7d7d7d)
     embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
     embed.add_field(name="Creator:", value="The creator of the bot is <@398580757335113739>", inline=False)
@@ -95,12 +97,14 @@ async def binfo(ctx):
 
 @client.command(pass_context=True)
 async def clear(ctx):
+    """Clears all the messages of current channel"""
     tmp = await client.send_message(ctx.message.channel, 'Clearing messages')
     async for msg in client.logs_from(ctx.message.channel):
         await client.delete_message(msg)
 
 @client.command(pass_context=True)
 async def setup(ctx):
+    """Instructions on how to setup the bot"""
     embed=discord.Embed(title="Setting up", description="Bot setup", color=0x9e6701)
     embed.set_author(name=client.user.name,url="https://discord.gg/gFuac2r", icon_url=client.user.avatar_url)
     embed.add_field(name="Step 1.", value="You must have an announcements txt channel", inline=False)
@@ -115,6 +119,7 @@ async def invitelink(ctx):
 
 @client.command(pass_context=True)
 async def msg(ctx, chnl, *, cont):
+    """Sends a message to a specific channel"""
     role = discord.utils.get(ctx.message.server.roles,name="Announcer")
     if role.id in [role.id for role in ctx.message.author.roles]:
         channel = discord.utils.get(ctx.message.server.channels, name=chnl, type=discord.ChannelType.text)
@@ -129,6 +134,7 @@ async def msg_on_error(ctx, error):
 
 @client.command(pass_context=True)
 async def rnum(ctx, ammount):
+    """Returns rundom numbers"""
     global randnums
     randnums = []
     count = int(float(ammount))
@@ -143,6 +149,7 @@ async def rnum_on_error(ctx,error):
 
 @client.command(pass_context=True)
 async def code(ctx, *, msg):
+    """Makes an embed"""
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.say(embed=embed)
@@ -152,6 +159,7 @@ async def code_on_error(ctx, error):
 
 @client.command(pass_context=True)
 async def ocontact(ctx, *, msg):
+    """Sends private message to the server owner"""
     embed=discord.Embed(description="{}".format(msg), color=0x008080)
     embed.set_author(name=ctx.message.author.name,icon_url=ctx.message.author.avatar_url)
     await client.send_message(ctx.message.author.server.owner, embed=embed)
@@ -165,6 +173,7 @@ async def ocontact_on_error(ctx,error):
     
 @client.command(pass_context=True)
 async def conmembers(ctx):
+    """Returns all members connected to a voice channel""" 
     x = ctx.message.server.members
     conmembs = []
     for member in x:
