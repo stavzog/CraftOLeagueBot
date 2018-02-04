@@ -37,17 +37,17 @@ class Extra():
         if randMsg == "Im":
             randBits = random.choice(msgbits1)
             randMsg = randMsg + " " + randBits
-            await ctx.say(randMsg)
+            await client.say(randMsg)
         elif randMsg == "I want":
             randBits = random.choice(msgbits2)
             randMsg = randMsg + " " + randBits
-            await ctx.say(randMsg)
+            await client.say(randMsg)
         elif randMsg == "I hope":
             randBits = random.choice(msgbits3)
             randMsg = randMsg + " " + randBits
-            await ctx.say(randMsg)
+            await client.say(randMsg)
         else:
-            await ctx.say(randMsg)
+            await client.say(randMsg)
 
 def setup(bot):
     bot.add_cog(Extra(bot))
