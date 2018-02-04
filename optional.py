@@ -1,10 +1,9 @@
-import discord
+import disocrd
 from discord.ext import commands
 
-class Extra:
+class Extra():
 	"""Extra bot commands"""
 	def __init__(self, bot):
 		self.bot = bot
-		
 def setup(bot):
-	bot.add_cog(Extra(bot))
+	bot.add_cog(Extra(Bot))
