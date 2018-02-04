@@ -32,12 +32,12 @@ async def load(ctx, extension_name : str):
     """Loads an extension."""
     role = discord.utils.get(ctx.message.server.roles,name="Owner")
     if role.id in [role.id for role in ctx.message.author.roles]:
-	try:
-        client.load_extension(extension_name)
-    except (AttributeError, ImportError) as e:
-        await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
-        return
-    await client.say("{} loaded.".format(extension_name))
+		try:
+        	client.load_extension(extension_name)
+    	except (AttributeError, ImportError) as e:
+        	await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+        	return
+   		await client.say("{} loaded.".format(extension_name))
     else:
         await client.say("You don't have permission to use this command!")
 		
