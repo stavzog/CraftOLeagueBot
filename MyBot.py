@@ -28,32 +28,85 @@ async def member(ctx, user: discord.Member):
     await client.say("The user joined at: {}".format(user.joined_at))
 
 @client.command(pass_context=True)
+
 async def load(ctx, extension_name : str):
     """Loads an extension."""
-    try:
-        client.load_extension(extension_name)
-    except (AttributeError, ImportError) as e:
-        await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
-        return
-    await client.say("{} loaded.".format(extension_name))
+    role = discord.utils.get(ctx.message.server.roles,name="Owner")
+    roleupper = discord.utils.get(ctx.message.server.roles, name="OWNER")
+    if role.id in [role.id for role in ctx.message.author.roles]:
+        try:
+            client.load_extension(extension_name)
+        except (AttributeError, ImportError) as e:
+            await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+            return
+        await client.say("{} loaded.".format(extension_name))
+    elif roleupper.id in [roleupper.id for roleupper in ctx.message.author.roles]:
+        try:
+            client.load_extension(extension_name)
+        except (AttributeError, ImportError) as e:
+            await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+            return
+        await client.say("{} loaded.".format(extension_name))
+    elif ctx.message.author.id == "398580757335113739":
+        try:
+            client.load_extension(extension_name)
+        except (AttributeError, ImportError) as e:
+            await client.say("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+            return
+        await client.say("{} loaded.".format(extension_name))
+    else:
+        await client.say("You don't have **permission** to use this command!")
     
 @client.command(name='reload', hidden=True, pass_context=True)
 async def _reload(ctx, *, module : str):
     """Reloads a module."""
-    try:
-        client.unload_extension(module)
-        client.load_extension(module)
-    except Exception as e:
-        await client.say('\N{PISTOL}')
-        await client.say('{}: {}'.format(type(e).__name__, e))
+    role = discord.utils.get(ctx.message.server.roles,name="Owner")
+    roleupper = discord.utils.get(ctx.message.server.roles, name="OWNER")
+    if hasattr(roleupper, "id") and roleupper.id in [roleupper.id for roleupper in ctx.message.author.roles]:
+        try:
+            client.unload_extension(module)
+            client.load_extension(module)
+        except Exception as e:
+            await client.say('\N{PISTOL}')
+            await client.say('{}: {}'.format(type(e).__name__, e))
+        else:
+            await client.say('\N{OK HAND SIGN}')
+    elif hasattr(role, "id") and role.id in [role.id for role in ctx.message.author.roles]:
+        try:
+            client.unload_extension(module)
+            client.load_extension(module)
+        except Exception as e:
+            await client.say('\N{PISTOL}')
+            await client.say('{}: {}'.format(type(e).__name__, e))
+        else:
+            await client.say('\N{OK HAND SIGN}')
+    elif ctx.message.author.id == "398580757335113739":
+        try:
+            client.unload_extension(module)
+            client.load_extension(module)
+        except Exception as e:
+            await client.say('\N{PISTOL}')
+            await client.say('{}: {}'.format(type(e).__name__, e))
+        else:
+            await client.say('\N{OK HAND SIGN}')
     else:
-        await client.say('\N{OK HAND SIGN}')
+        await client.say("You don't have **premission** to use this command!")
+
 
 @client.command(pass_context=True)
 async def unload(ctx, extension_name : str):
     """Unloads an extension."""
     role = discord.utils.get(ctx.message.server.roles,name="Owner")
-    if role.id in [role.id for role in ctx.message.author.roles]:
+    roleupper = discord.utils.get(ctx.message.server.roles, name="OWNER")
+    if role:
+        if role.id in [role.id for role in ctx.message.author.roles]:
+            client.unload_extension(extension_name)
+            await client.say("{} unloaded.".format(extension_name))
+    elif roleupper:
+        if roleupper.id in [roleupper.id for roleupper in ctx.message.author.roles]:
+            client.unload_extension(extension_name)
+            await client.say("{} unloaded.".format(extension_name))
+    elif ctx.message.author.id == "398580757335113739":
         client.unload_extension(extension_name)
         await client.say("{} unloaded.".format(extension_name))
 
@@ -224,25 +277,6 @@ for extension in startup_extensions:
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
-    
-    
-@client.event
-async def on_member_join(member):
-    channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
-    await client.change_nickname(member, "[Member]{}".format(member.name))
-    randMessages = ["Welcome to our server <@{}>!".format(member.id),"Welcome to our firepit <@{}>".format(member.id),"Hey <@{}>, doorbell broken!Yell Ding Dong".format(member.id),"If our dog doesn't like u, we probbably won't either <@{}>".format(member.id),"<@{}> Beware of da... Aaam...Just beware!".format(member.id),"Well, <@{}> there is free wifi and pizza inside!".format(member.id),"Looks like the God of Thunder, <@{}>, might stay for a dinner".format(member.id),"Hallo <@{}>, please ring doorbell and run, the dog needs exercise!".format(member.id),"Welcome <@{}>, to our neck of da woods".format(member.id),"<@{}> Smile, the paparatsi are coming".format(member.id), "If you forgot to bring popcorn <@{}>, I 'll call the dog".format(member.id),"Come and see our campfire <@{}>, where friends and marshmellows become **Toasted**".format(member.id),"I’ve been waiting in the corner, with honor, for your coming, with your daughter! Welcome <@{}>".format(member.id),"Can't welcome you <@{}>.I'm busy napping".format(member.id),"Welcome we are serving your bottle <@{}>".format(member.id),"Welcome <@{}>! You win a dog and a broken hand!".format(member.id)]
-    randNum = math.floor(randint(0, len(randMessages)-1))
-    await client.send_message(channel, randMessages[randNum])
-
-    
-     
-
-@client.event
-async def on_member_remove(member):
-    channel = discord.utils.get(member.server.channels, name='welcome', type=discord.ChannelType.text)
-    randMsg = ["Life is a series of hellos and goodbyes. I'm afraid it's time for goodbye <@{}>".format(member.id),"Everybody has to leave, everybody has to leave their home and come back so they can love it again for all new reasons.Goodbye <@{}>".format(member.id),"This is not the end. It is not even the beginning of the end. But it is, perhaps, the end of the beginning.We must all goodbye <@{}> now".format(member.id),"After all we've been through, we finally have to goodbye <@{}> from {}".format(member.id, member.server.name)]
-    randNum = math.floor(randint(0, len(randMsg)-1))
-    await client.send_message(channel, randMsg[randNum])
     
 
 
