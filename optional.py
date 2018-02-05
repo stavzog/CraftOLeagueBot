@@ -49,6 +49,43 @@ class Extra():
         else:
             await self.bot.say(randMsg)
 
+    @commands.command(pass_context=True)
+    async def conmb(ctx):
+        """Returns all members connected to a voice channel""" 
+        x = ctx.message.server.members
+        conmembs = []
+        for member in x:
+            if member.voice_channel != None:
+                conmembs.append(member.name)
+                
+        if conmembs == []:
+            await client.say("No members are connected to a voice channel")
+        else:
+            await client.say("{}".format(" ".join(conmembs)))
+    @commands.command(pass_context=True)
+    async def encode(ctx, *, msg):
+        encoded = []
+        msg = msg.lower()
+        for letter in msg:
+            randnum = randint(0, len(msg)-1)
+            if letter == "i":
+                letter = "1"
+                encoded.append(letter)
+            elif letter == "a":
+                letter = "@"
+                encoded.append(letter)
+            elif letter == "e":
+                letter = "3"
+                encoded.append(letter)
+            elif letter == "o":
+                letter = "0"
+                encoded.append(letter)
+            else:
+                if msg[randint] == letter:
+                    letter = letter.upper()
+                    encoded.append(letter)
+        await client.say("Encoded message:{}".format(" ".join(encoded)))
+    
+
 def setup(bot):
     bot.add_cog(Extra(bot))
-
